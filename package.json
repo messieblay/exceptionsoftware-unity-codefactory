@@ -1,0 +1,7 @@
+{
+  "name": "com.exceptionsoftware.excodefactory",
+  "displayName": "Ex Code factory",
+  "version": "1.0.0",
+  "description": "Herrameinta para la creacion de codigo",
+  "type": "library"
+}
