@@ -5,10 +5,18 @@ namespace ExceptionSoftware.CodeFactory
     [System.Serializable]
     public abstract class Template
     {
-        public string rootPath;
-        public Template(string rootPath)
+        /// <summary>
+        /// Relative path. Must starts with Assets/
+        /// </summary>
+        public string relativePath;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="relativePath">Must starts with Assets/</param>
+        public Template(string relativePath)
         {
-            this.rootPath = rootPath;
+            this.relativePath = relativePath;
         }
         public abstract void GetFiles(List<TemplateFile> files);
 

@@ -14,13 +14,20 @@ namespace ExceptionSoftware.CodeFactory
 
                 if (template == null)
                 {
-                    Debug.Log("[CodeFactory] template is null");
-                    return;
+                    Debug.LogError($"[CodeFactory] Template {typeof(T).Name} not created by: template is null");
+                    continue;
                 }
 
+                if (!template.relativePath.StartsWith("Assets/"))
+                {
+                    Debug.LogError($"[CodeFactory] Template {typeof(T).Name} not created by: relativePath not begins with Assets/");
+                    continue;
+                }
+
+                string finalPath = FileUtils.ConvertRelativePathToAbsolute(template.relativePath);
+
                 //Creacion de directorio
-                Debug.Log("Application.dataPath: " + Application.dataPath);
-                Directory.CreateDirectory(template.rootPath);
+                Directory.CreateDirectory(finalPath);
 
                 List<TemplateFile> files = new List<TemplateFile>();
                 template.GetFiles(files);
@@ -29,13 +36,13 @@ namespace ExceptionSoftware.CodeFactory
                 foreach (var file in files)
                 {
                     //Reemplazar fichero
-                    string finalPath = template.rootPath + "/" + file.className + ".cs";
+                    string finalFilePath = FileUtils.ConcatPaths(finalPath, file.className + ".cs");
                     filesCreated += file.className + "\n";
-                    File.WriteAllText(finalPath, file.BuildCode());
+                    File.WriteAllText(finalFilePath, file.BuildCode());
                 }
 
 
-                Debug.Log($"[CodeFactory] Template {typeof(T).Name} created in {template.rootPath}\n{filesCreated}");
+                Debug.Log($"[CodeFactory] Template {typeof(T).Name} created in {template.relativePath}\n{filesCreated}");
             }
 
             UnityEditor.AssetDatabase.Refresh();

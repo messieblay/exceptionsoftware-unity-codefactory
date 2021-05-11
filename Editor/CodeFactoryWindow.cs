@@ -47,7 +47,7 @@ namespace ExceptionSoftware.CodeFactory
         }
         #endregion
 
-        [SerializeField] string rootPath = string.Empty;
+        [SerializeField] string relativePath = string.Empty;
         [SerializeField] List<Type> templatesTypes = null;
         [SerializeField] List<Template> templates = new List<Template>();
         [SerializeField] string[] templatesNames = null;
@@ -87,13 +87,12 @@ namespace ExceptionSoftware.CodeFactory
 
         void DrawRootPath()
         {
-            EditorGUILayout.LabelField(Application.dataPath);
             EditorGUILayout.BeginHorizontal();
             {
-                rootPath = EditorGUILayout.DelayedTextField("Root path", rootPath);
+                EditorGUILayout.LabelField("Path", FileUtils.ConvertRelativePathToAbsolute(relativePath));
                 if (GUILayout.Button("Explore", GUILayout.Width(70)))
                 {
-                    rootPath = EditorUtility.OpenFolderPanel("Root path", rootPath, "");
+                    relativePath = FileUtils.ConvertPathToRelative(EditorUtility.OpenFolderPanel("RelativePath path", FileUtils.ConvertRelativePathToAbsolute(relativePath), ""));
                 }
             }
             EditorGUILayout.EndHorizontal();
@@ -107,7 +106,7 @@ namespace ExceptionSoftware.CodeFactory
                 {
                     DrawRootPath();
                     ExGUI.Separator();
-                    GUI.enabled = rootPath != string.Empty;
+                    GUI.enabled = relativePath != string.Empty;
                     EditorGUILayout.BeginHorizontal();
                     {
                         EditorGUILayout.LabelField("Templates");
@@ -142,7 +141,7 @@ namespace ExceptionSoftware.CodeFactory
 
         void CreateNewTemplate()
         {
-            templates.Add((Template)System.Activator.CreateInstance(templateSelected, rootPath));
+            templates.Add((Template)System.Activator.CreateInstance(templateSelected, relativePath));
         }
 
         void DrawTemplate(Template t)
