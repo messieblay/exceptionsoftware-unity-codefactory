@@ -87,6 +87,7 @@ namespace ExceptionSoftware.CodeFactory
 
         void DrawRootPath()
         {
+            EditorGUILayout.LabelField(Application.dataPath);
             EditorGUILayout.BeginHorizontal();
             {
                 rootPath = EditorGUILayout.DelayedTextField("Root path", rootPath);

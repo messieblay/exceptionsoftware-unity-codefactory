@@ -19,6 +19,7 @@ namespace ExceptionSoftware.CodeFactory
                 }
 
                 //Creacion de directorio
+                Debug.Log("Application.dataPath: " + Application.dataPath);
                 Directory.CreateDirectory(template.rootPath);
 
                 List<TemplateFile> files = new List<TemplateFile>();
