@@ -33,14 +33,14 @@ namespace ExceptionSoftware.CodeFactory
                 template.GetFiles(files);
 
                 string filesCreated = string.Empty;
+                string finalFilePath;
                 foreach (var file in files)
                 {
                     //Reemplazar fichero
-                    string finalFilePath = FileUtils.ConcatPaths(finalPath, file.className + ".cs");
+                    finalFilePath = FileUtils.ConcatPaths(finalPath, file.className + ".cs");
                     filesCreated += file.className + "\n";
                     File.WriteAllText(finalFilePath, file.BuildCode());
                 }
-
 
                 Debug.Log($"[CodeFactory] Template {typeof(T).Name} created in {template.relativePath}\n{filesCreated}");
             }

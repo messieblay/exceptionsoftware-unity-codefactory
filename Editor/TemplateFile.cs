@@ -4,8 +4,9 @@ namespace ExceptionSoftware.CodeFactory
 {
     public sealed class TemplateFile
     {
-        public string[] usings;
+        public string[] usings = null;
         public string namespaces = string.Empty;
+        public string[] classAttributes = null;
         public string classVisibility = "public";
         public string classType = "class";
         public string className;
@@ -29,7 +30,7 @@ namespace ExceptionSoftware.CodeFactory
                 foreach (var u in usings)
                 {
                     if (u.IsNullOrEmpty()) continue;
-                    _writer.WriteLine($"{u};");
+                    _writer.WriteLine($"using {u};");
                 }
                 _writer.WriteLine("");
             }
@@ -41,6 +42,16 @@ namespace ExceptionSoftware.CodeFactory
                 _writer.WriteLine($"namespace {namespaces}");
                 _writer.BeginBlock();
                 _writer.WriteLine();
+            }
+
+            //Class Atributtes
+            if (classAttributes != null)
+            {
+                foreach (var u in classAttributes)
+                {
+                    if (u.IsNullOrEmpty()) continue;
+                    _writer.WriteLine($"[{u}]");
+                }
             }
 
             //Class header
