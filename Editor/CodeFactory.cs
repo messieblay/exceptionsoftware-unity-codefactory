@@ -42,10 +42,30 @@ namespace ExceptionSoftware.CodeFactory
                     File.WriteAllText(finalFilePath, file.BuildCode());
                 }
 
-                Debug.Log($"[CodeFactory] Template {typeof(T).Name} created in {template.relativePath}\n{filesCreated}");
+                Debug.Log($"[CodeFactory] {typeof(T).Name} created in {template.relativePath}\n{filesCreated}");
             }
 
             UnityEditor.AssetDatabase.Refresh();
+        }
+
+
+
+        public static string[] GenerateEnumContent(List<string> enumList)
+        {
+            List<string> content = new List<string>();
+            if (enumList.Count > 0)
+            {
+                for (int i = 0; i < enumList.Count; i++)
+                {
+                    content.Add(ValidName(enumList[i]));
+                }
+            }
+            return content.ToArray();
+
+            string ValidName(string sceneName)
+            {
+                return sceneName.Replace(" ", "");
+            }
         }
     }
 }
