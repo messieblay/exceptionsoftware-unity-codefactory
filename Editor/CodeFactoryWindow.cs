@@ -9,7 +9,7 @@ namespace ExceptionSoftware.CodeFactory
 {
     public class CodeFactoryWindow : ExWindow<CodeFactoryWindow>
     {
-        [MenuItem("Tools/Code factory", priority = 3000)]
+        [MenuItem("Tools/Code factory", priority = ExConstants.MENU_ITEM_PRIORITY)]
         public static CodeFactoryWindow GetWindow()
         {
             var window = EditorWindow.GetWindow<CodeFactoryWindow>();
