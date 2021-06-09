@@ -26,7 +26,6 @@ namespace ExceptionSoftware.CodeFactory
 
             file.body += delegate (Writer writer)
             {
-                string line;
                 writer.WriteLine("None = 0,");
 
                 for (int i = 0; i < enums.Length; i++)
