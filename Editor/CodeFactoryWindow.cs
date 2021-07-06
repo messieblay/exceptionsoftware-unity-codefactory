@@ -155,7 +155,7 @@ namespace ExceptionSoftware.CodeFactory
                     EditorGUI.BeginChangeCheck();
                     EditorGUILayout.LabelField(f.Name);
                     var valueArray = f.GetValue(t) as string[];
-
+                    ExGUI.HelpBoxInfo("String list. Separated by Intro  ");
                     var text = EditorGUILayout.TextArea(ConvertToString(valueArray), GUILayout.Height(60));
                     if (EditorGUI.EndChangeCheck())
                     {
